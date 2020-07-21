@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import socketio from 'socket.io-client';
+import "./Chat.css";
 
 const socket = socketio.connect('http://localhost:5000');
 
@@ -46,30 +47,40 @@ const Chat = () => {
         <div className="chat-container">
             {IsNameSended
                 ?
-                <>
-                    <h1>Hello {Name}</h1>
-                    <form onSubmit={sendChat}>
-                        <input type="text" onChange={e => setChat(e.currentTarget.value)} />
-                    </form>
-                    <div>
-                        상대방 : {Other}
-                    </div>
+                <div className="name-container">
+                    <h3>Hello {Name}</h3>
+                    {Other === ''
+                        ?
+                        <p>아직 상대방이 들어오지 않았음</p>
+                        : <div>
+                            상대방 : {Other}
+
+                            <form onSubmit={sendChat} className="sendName">
+                                <input type="text" onChange={e => setChat(e.currentTarget.value)} />
+                            </form>
+                        </div>}
                     {
                         IsChatSended ?
-                            <div>
+                            <div className="chat-box">
                                 {Msg.length > 0 && Msg.map((item, index) =>
                                     item.socketId === MySocketId ?
-                                        <h2>{item.data}</h2>
+                                        <div className="myChat">
+                                            <p>Me</p>
+                                            <h6 key={index}>{item.data}</h6>
+                                        </div>
                                         :
-                                        <h4>{item.data}</h4>
+                                        <div className="otherChat">
+                                            <p>{Other}</p>
+                                            <h6 key={index}>{item.data}</h6>
+                                        </div>
                                 )}
                             </div>
                             :
                             <></>
                     }
-                </>
+                </div>
                 :
-                <form onSubmit={sendName}>
+                <form onSubmit={sendName} className="sendName-form">
                     <label>Nickname</label>
                     <input type="text" onChange={e => setName(e.currentTarget.value)} />
                 </form>
