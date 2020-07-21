@@ -1,0 +1,23 @@
+{
+  "name": "chat-socket",
+  "version": "1.0.0",
+  "description": "use socket.io",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server/index.js",
+    "dev": "concurrently \"npm start\" \"npm start --prefix client\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.10.4",
+    "concurrently": "^5.2.0",
+    "express": "^4.17.1",
+    "helmet": "^3.23.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0"
+  }
+}
